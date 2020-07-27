@@ -1,14 +1,8 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
-import * as styles from './test.module.scss';
+import RouteWrapper from './Router';
 
 function App() {
-  return (
-    <>
-      <h2 className={styles.title}>bitmis</h2>
-      <Button>Click</Button>
-    </>
-  );
+  return <RouteWrapper />;
 }
 
 export default App;
