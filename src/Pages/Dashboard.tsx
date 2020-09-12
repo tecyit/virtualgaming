@@ -1,14 +1,19 @@
 import React from 'react';
-import Nav from '../Components/Nav';
-import SubMenu from '../Components/Nav/SubMenu';
-import Main from '../Components/Tables/Main';
+import { Helmet } from 'react-helmet';
+import MainLayout from '../Components/Layouts/MainLayout';
+import TabMenu from '../Components/Nav/TabMenu';
 
 const Dashboard = () => {
   return (
     <>
-      <Nav />
-      <SubMenu />
-      <Main />
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Home</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
+      <MainLayout>
+        <TabMenu />
+      </MainLayout>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, Container, Icon } from 'semantic-ui-react';
+import styles from './Nav.module.scss';
 
 const Nav = () => {
   const [activeItem, setActiveItem] = useState('');
@@ -7,7 +8,7 @@ const Nav = () => {
   const handleItemClick = (e: any, { name }: any) => setActiveItem(name);
 
   return (
-    <Menu stackable size="huge" borderless>
+    <Menu stackable size="massive" borderless className={styles.navWrapper}>
       <Container>
         <Menu.Item>DailyFantasyNerd</Menu.Item>
 
