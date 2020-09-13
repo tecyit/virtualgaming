@@ -1,13 +1,27 @@
 import express from 'express';
+import path from 'path';
 
-const PORT = 4000;
+(async () => {
+  try {
+    const PORT = 4000;
 
-const app = express();
+    const app = express();
 
-// tslint:disable-next-line: variable-name
-app.use('/', (_req, res) => {
-  res.send('HELLO');
-});
+    const staticFiles = express.static(
+      path.join(__dirname, '../../client/build'),
+    );
 
-// tslint:disable-next-line: no-console
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    app.use(staticFiles);
+
+    // tslint:disable-next-line: variable-name
+    app.use('/hello', (_req, res) => {
+      res.send('HELLO');
+    });
+
+    // tslint:disable-next-line: no-console
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  } catch (err) {
+    // tslint:disable-next-line: no-console
+    console.error('Something went wrong: ', err);
+  }
+})();
