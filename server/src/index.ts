@@ -19,7 +19,9 @@ import path from 'path';
     });
 
     // tslint:disable-next-line: no-console
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    app.listen(process.env.PORT, () =>
+      console.log(`Server running on port ${PORT}`),
+    );
   } catch (err) {
     // tslint:disable-next-line: no-console
     console.error('Something went wrong: ', err);
