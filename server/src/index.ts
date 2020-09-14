@@ -13,11 +13,6 @@ import path from 'path';
 
     app.use(staticFiles);
 
-    // tslint:disable-next-line: variable-name
-    app.use('/hello', (_req, res) => {
-      res.send('HELLO');
-    });
-
     // tslint:disable-next-line: no-console
     app.listen(process.env.PORT, () =>
       console.log(`Server running on port ${PORT}`),
