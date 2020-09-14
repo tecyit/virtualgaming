@@ -10,7 +10,7 @@ const Nav = () => {
   return (
     <Menu stackable size="massive" borderless className={styles.navWrapper}>
       <Container>
-        <Menu.Item>DailyFantasyNerd</Menu.Item>
+        <Menu.Item>VirtualGaming</Menu.Item>
 
         <Menu.Item name="features" active={activeItem === 'features'} onClick={handleItemClick}>
           Optimizer
