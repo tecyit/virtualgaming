@@ -13,6 +13,8 @@ import path from 'path';
 
     app.use(staticFiles);
 
+    app.use('/*', staticFiles);
+
     // tslint:disable-next-line: no-console
     app.listen(process.env.PORT, () =>
       console.log(`Server running on port ${PORT}`),
