@@ -63,7 +63,7 @@ const PlayersTable: React.FC = () => {
     const fetchPlayers = async () => {
       setLoading(true);
       try {
-        const { data }: any = await axios.get('/Players');
+        const { data }: any = await axios.get('/scores/json/Players');
         setPlayers(data);
         setLoading(false);
       } catch (err) {

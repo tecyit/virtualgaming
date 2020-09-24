@@ -5,6 +5,7 @@ type ModalAction = ReturnType<typeof openSignUpModal | typeof closeModals>;
 
 const initialState = {
   isSignUpModalOpen: false,
+  isLoginModalOpen: false,
 };
 
 const modalReducer = (state = initialState, action: ModalAction) => {
@@ -13,12 +14,19 @@ const modalReducer = (state = initialState, action: ModalAction) => {
       return {
         ...state,
         isSignUpModalOpen: true,
+        isLoginModalOpen: false,
       };
-
+    case modalTypes.OPEN_LOGIN_MODAL:
+      return {
+        ...state,
+        isLoginModalOpen: true,
+        isSignUpModalOpen: false,
+      };
     case modalTypes.CLOSE_MODALS:
       return {
         ...state,
         isSignUpModalOpen: false,
+        isLoginModalOpen: false,
       };
     default:
       return state;

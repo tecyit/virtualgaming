@@ -1,46 +1,50 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Menu, Container, Icon } from 'semantic-ui-react';
+import { openSignUpModal, openLoginModal } from '../../redux/modals/modal.actions';
+import { SignUp, Login } from '../Auth';
 import styles from './Nav.module.scss';
 
 const Nav = () => {
-  const [activeItem, setActiveItem] = useState('');
+  const dispatch = useDispatch();
 
-  const handleItemClick = (e: any, { name }: any) => setActiveItem(name);
+  const handleOpenSignUp = () => {
+    dispatch(openSignUpModal());
+  };
+
+  const handleOpenLogin = () => {
+    dispatch(openLoginModal());
+  };
 
   return (
-    <Menu stackable size="massive" borderless className={styles.navWrapper}>
-      <Container>
-        <Menu.Item>VirtualGaming</Menu.Item>
+    <>
+      <Menu stackable size="massive" borderless className={styles.navWrapper}>
+        <Container>
+          <Menu.Item>VirtualGaming</Menu.Item>
 
-        <Menu.Item name="features" active={activeItem === 'features'} onClick={handleItemClick}>
-          Optimizer
-        </Menu.Item>
+          <Menu.Item>Optimizer</Menu.Item>
 
-        <Menu.Item name="testimonials" active={activeItem === 'testimonials'} onClick={handleItemClick}>
-          Bankroll
-        </Menu.Item>
-        <Menu.Menu position="right">
-          <Menu.Item name="sign-in" active={activeItem === 'sign-in'} onClick={handleItemClick}>
-            <Icon name="facebook" />
-          </Menu.Item>
-          <Menu.Item name="sign-in" active={activeItem === 'sign-in'} onClick={handleItemClick}>
-            <Icon name="twitter" />
-          </Menu.Item>
-          <Menu.Item name="sign-in" active={activeItem === 'sign-in'} onClick={handleItemClick}>
-            <Icon name="google" />
-          </Menu.Item>
-          <Menu.Item name="sign-in" active={activeItem === 'sign-in'} onClick={handleItemClick}>
-            Premium
-          </Menu.Item>
-          <Menu.Item name="sign-in" active={activeItem === 'sign-in'} onClick={handleItemClick}>
-            Tutorials
-          </Menu.Item>
-          <Menu.Item name="sign-in" active={activeItem === 'sign-in'} onClick={handleItemClick}>
-            FAQ
-          </Menu.Item>
-        </Menu.Menu>
-      </Container>
-    </Menu>
+          <Menu.Item>Bankroll</Menu.Item>
+          <Menu.Menu position="right">
+            <Menu.Item>
+              <Icon name="facebook" />
+            </Menu.Item>
+            <Menu.Item>
+              <Icon name="twitter" />
+            </Menu.Item>
+            <Menu.Item>
+              <Icon name="google" />
+            </Menu.Item>
+            <Menu.Item>Premium</Menu.Item>
+            <Menu.Item>Tutorials</Menu.Item>
+            <Menu.Item onClick={handleOpenLogin}>Log In</Menu.Item>
+            <Menu.Item onClick={handleOpenSignUp}>Sign Up</Menu.Item>
+          </Menu.Menu>
+        </Container>
+      </Menu>
+      <SignUp />
+      <Login />
+    </>
   );
 };
 

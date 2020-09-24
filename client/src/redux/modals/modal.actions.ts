@@ -11,3 +11,9 @@ export const openSignUpModal = () => {
     type: modalTypes.OPEN_SIGN_UP_MODAL,
   };
 };
+
+export const openLoginModal = () => {
+  return {
+    type: modalTypes.OPEN_LOGIN_MODAL,
+  };
+};

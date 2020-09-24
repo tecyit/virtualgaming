@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Tab } from 'semantic-ui-react';
 import PlayersTable from '../Tables/Players';
+import Individual from '../Tables/Individual';
 import styles from './Nav.module.scss';
 
 const panes = [
@@ -13,8 +14,12 @@ const panes = [
     ),
   },
   {
-    menuItem: 'Tab 2',
-    render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane>,
+    menuItem: 'Single View',
+    render: () => (
+      <Tab.Pane attached={false} className={styles.tabPane}>
+        <Individual />
+      </Tab.Pane>
+    ),
   },
   {
     menuItem: 'Tab 3',

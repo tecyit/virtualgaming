@@ -1,5 +1,10 @@
 import express from 'express';
 import path from 'path';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+
+import env from './env';
+import Response from './middleware/response.middleware';
 
 (async () => {
   try {
@@ -15,8 +20,8 @@ import path from 'path';
 
     app.use('/*', staticFiles);
 
-    // tslint:disable-next-line: no-console
     app.listen(process.env.PORT, () =>
+      // tslint:disable-next-line: no-console
       console.log(`Server running on port ${PORT}`),
     );
   } catch (err) {
