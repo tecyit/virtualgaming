@@ -11,9 +11,7 @@ const Individual: React.FC = () => {
     const fetchPlayer = async () => {
       setLoading(true);
       try {
-        const { data }: any = await axios.get(
-          '/projections/json/PlayerGameProjectionStatsByPlayer/2020-SEP-09/20000752',
-        );
+        const { data }: any = await axios.get('/projections/json/PlayerGameProjectionStatsByPlayer/2020-SEP-09');
 
         console.log('Data from the api is: ', data);
         setPlayer(data);

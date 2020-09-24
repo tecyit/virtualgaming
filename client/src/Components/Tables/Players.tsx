@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Table, Icon, Loader, Dimmer } from 'semantic-ui-react';
+import { Input, Table, Icon, Loader, Dimmer, Image, Button } from 'semantic-ui-react';
 import axios from '../../axios';
 import styles from './Table.module.scss';
 
@@ -58,6 +58,7 @@ interface IPlayer {
 const PlayersTable: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [players, setPlayers] = useState<IPlayer[]>([]);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     const fetchPlayers = async () => {
@@ -74,6 +75,20 @@ const PlayersTable: React.FC = () => {
     fetchPlayers();
   }, []);
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
+    const filteredPlayers = players.filter((value) => {
+      return value.FirstName == name;
+    });
+
+    setPlayers(filteredPlayers);
+  };
+
+  const handleChnage = (e: any) => {
+    setName(e.target.value);
+  };
+
   var formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -86,7 +101,9 @@ const PlayersTable: React.FC = () => {
         <Table.Cell>
           {data.FirstName} {data.LastName}
         </Table.Cell>
-        <Table.Cell>2</Table.Cell>
+        <Table.Cell>
+          <Image src={data.PhotoUrl} size="tiny" style={{ width: '50px', height: '50px' }} />
+        </Table.Cell>
         <Table.Cell>3</Table.Cell>
         <Table.Cell>4</Table.Cell>
         <Table.Cell>{data.Position}</Table.Cell>
@@ -130,7 +147,18 @@ const PlayersTable: React.FC = () => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell colSpan="12" style={{ textAlign: 'left' }}>
-                <Input icon="users" iconPosition="left" placeholder="Search players..." />
+                <form onSubmit={handleSubmit}>
+                  <Input
+                    icon="users"
+                    iconPosition="left"
+                    placeholder="Search players..."
+                    name="filter"
+                    onChange={handleChnage}
+                  />
+                  <Button type="submit" primary>
+                    Search
+                  </Button>
+                </form>
               </Table.HeaderCell>
               <Table.HeaderCell colSpan="3">Opponent</Table.HeaderCell>
               <Table.HeaderCell colSpan="3">FGA</Table.HeaderCell>
