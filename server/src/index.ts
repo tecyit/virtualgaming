@@ -1,10 +1,10 @@
 import express from 'express';
 import path from 'path';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+// import bodyParser from 'body-parser';
+// import cors from 'cors';
 
-import env from './env';
-import Response from './middleware/response.middleware';
+// import env from './env';
+// import Response from './middleware/response.middleware';
 
 (async () => {
   try {
