@@ -12,7 +12,7 @@ const Individual: React.FC = () => {
       setLoading(true);
       try {
         const { data }: any = await axios.get(
-          '/projections/json/PlayerGameProjectionStatsByPlayer/2020-SEP-09/20000752',
+          '/projections/json/PlayerGameProjectionStatsByPlayer/2020-Sep-09/20000752',
         );
 
         console.log('Data from the api is: ', data);

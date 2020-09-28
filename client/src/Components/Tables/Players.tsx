@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Table, Icon, Loader, Dimmer, Image, Button } from 'semantic-ui-react';
+import { useDispatch } from 'react-redux';
+import { Input, Table, Icon, Loader, Dimmer, Image, Button, Select } from 'semantic-ui-react';
 import axios from '../../axios';
+import { openSelectDateModal } from '../../redux/modals/modal.actions';
+import PlayerProjections from '../Modals/PlayerProjections';
+import SelectDate from '../Modals/SelectDate';
 import styles from './Table.module.scss';
 
 interface IPlayer {
@@ -56,9 +60,17 @@ interface IPlayer {
 }
 
 const PlayersTable: React.FC = () => {
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
   const [players, setPlayers] = useState<IPlayer[]>([]);
   const [name, setName] = useState('');
+
+  // Open the select date modal
+  const openModal = (playerId: number) => {
+    console.log('Individual player clicked: ', playerId);
+    dispatch(openSelectDateModal(playerId));
+  };
 
   useEffect(() => {
     const fetchPlayers = async () => {
@@ -94,10 +106,11 @@ const PlayersTable: React.FC = () => {
     currency: 'USD',
   });
 
-  const playerData = players.map((data, index) => {
+  const playerData = players.map((data) => {
     const salary = formatter.format(data.Salary);
+
     return (
-      <Table.Row key={index}>
+      <Table.Row key={data.PlayerID} onClick={() => openModal(data.PlayerID)}>
         <Table.Cell>
           {data.FirstName} {data.LastName}
         </Table.Cell>
@@ -143,70 +156,74 @@ const PlayersTable: React.FC = () => {
           <Loader size="large">Loading</Loader>
         </Dimmer>
       ) : (
-        <Table celled structured size="small" compact textAlign="center" loading>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell colSpan="12" style={{ textAlign: 'left' }}>
-                <form onSubmit={handleSubmit}>
-                  <Input
-                    icon="users"
-                    iconPosition="left"
-                    placeholder="Search players..."
-                    name="filter"
-                    onChange={handleChnage}
-                  />
-                  <Button type="submit" primary>
-                    Search
-                  </Button>
-                </form>
-              </Table.HeaderCell>
-              <Table.HeaderCell colSpan="3">Opponent</Table.HeaderCell>
-              <Table.HeaderCell colSpan="3">FGA</Table.HeaderCell>
-              <Table.HeaderCell colSpan="3">Minutes</Table.HeaderCell>
-              <Table.HeaderCell colSpan="4">FP</Table.HeaderCell>
-              <Table.HeaderCell colSpan="3">Proj</Table.HeaderCell>
-              <Table.HeaderCell colSpan="2">
-                <Icon name="question circle outline" />
-              </Table.HeaderCell>
-            </Table.Row>
-            <Table.Row className={styles.tableRow}>
-              <Table.HeaderCell>Player Name</Table.HeaderCell>
-              <Table.HeaderCell>
-                <Icon name="question circle outline" />
-              </Table.HeaderCell>
-              <Table.HeaderCell>Likes</Table.HeaderCell>
-              <Table.HeaderCell>Inj</Table.HeaderCell>
-              <Table.HeaderCell>Pos</Table.HeaderCell>
-              <Table.HeaderCell>Salary</Table.HeaderCell>
-              <Table.HeaderCell>Team</Table.HeaderCell>
-              <Table.HeaderCell>Opp</Table.HeaderCell>
-              <Table.HeaderCell>Rest</Table.HeaderCell>
-              <Table.HeaderCell>PS</Table.HeaderCell>
-              <Table.HeaderCell>USG</Table.HeaderCell>
-              <Table.HeaderCell>PER</Table.HeaderCell>
-              <Table.HeaderCell>Pace</Table.HeaderCell>
-              <Table.HeaderCell>DEff</Table.HeaderCell>
-              <Table.HeaderCell>DvP</Table.HeaderCell>
-              <Table.HeaderCell>L2</Table.HeaderCell>
-              <Table.HeaderCell>L5</Table.HeaderCell>
-              <Table.HeaderCell>S</Table.HeaderCell>
-              <Table.HeaderCell>L2</Table.HeaderCell>
-              <Table.HeaderCell>L5</Table.HeaderCell>
-              <Table.HeaderCell>S</Table.HeaderCell>
-              <Table.HeaderCell>L5</Table.HeaderCell>
-              <Table.HeaderCell>S</Table.HeaderCell>
-              <Table.HeaderCell>F</Table.HeaderCell>
-              <Table.HeaderCell>C</Table.HeaderCell>
-              <Table.HeaderCell>Min</Table.HeaderCell>
-              <Table.HeaderCell>FP</Table.HeaderCell>
-              <Table.HeaderCell>Val</Table.HeaderCell>
-              <Table.HeaderCell>L</Table.HeaderCell>
-              <Table.HeaderCell>E</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
+        <>
+          <Table celled structured size="small" compact textAlign="center" loading>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell colSpan="12" style={{ textAlign: 'left' }}>
+                  <form onSubmit={handleSubmit}>
+                    <Input
+                      icon="users"
+                      iconPosition="left"
+                      placeholder="Search players..."
+                      name="filter"
+                      onChange={handleChnage}
+                    />
+                    <Button type="submit" primary>
+                      Search
+                    </Button>
+                  </form>
+                </Table.HeaderCell>
+                <Table.HeaderCell colSpan="3">Opponent</Table.HeaderCell>
+                <Table.HeaderCell colSpan="3">FGA</Table.HeaderCell>
+                <Table.HeaderCell colSpan="3">Minutes</Table.HeaderCell>
+                <Table.HeaderCell colSpan="4">FP</Table.HeaderCell>
+                <Table.HeaderCell colSpan="3">Proj</Table.HeaderCell>
+                <Table.HeaderCell colSpan="2">
+                  <Icon name="question circle outline" />
+                </Table.HeaderCell>
+              </Table.Row>
+              <Table.Row className={styles.tableRow}>
+                <Table.HeaderCell>Player Name</Table.HeaderCell>
+                <Table.HeaderCell>
+                  <Icon name="question circle outline" />
+                </Table.HeaderCell>
+                <Table.HeaderCell>Likes</Table.HeaderCell>
+                <Table.HeaderCell>Inj</Table.HeaderCell>
+                <Table.HeaderCell>Pos</Table.HeaderCell>
+                <Table.HeaderCell>Salary</Table.HeaderCell>
+                <Table.HeaderCell>Team</Table.HeaderCell>
+                <Table.HeaderCell>Opp</Table.HeaderCell>
+                <Table.HeaderCell>Rest</Table.HeaderCell>
+                <Table.HeaderCell>PS</Table.HeaderCell>
+                <Table.HeaderCell>USG</Table.HeaderCell>
+                <Table.HeaderCell>PER</Table.HeaderCell>
+                <Table.HeaderCell>Pace</Table.HeaderCell>
+                <Table.HeaderCell>DEff</Table.HeaderCell>
+                <Table.HeaderCell>DvP</Table.HeaderCell>
+                <Table.HeaderCell>L2</Table.HeaderCell>
+                <Table.HeaderCell>L5</Table.HeaderCell>
+                <Table.HeaderCell>S</Table.HeaderCell>
+                <Table.HeaderCell>L2</Table.HeaderCell>
+                <Table.HeaderCell>L5</Table.HeaderCell>
+                <Table.HeaderCell>S</Table.HeaderCell>
+                <Table.HeaderCell>L5</Table.HeaderCell>
+                <Table.HeaderCell>S</Table.HeaderCell>
+                <Table.HeaderCell>F</Table.HeaderCell>
+                <Table.HeaderCell>C</Table.HeaderCell>
+                <Table.HeaderCell>Min</Table.HeaderCell>
+                <Table.HeaderCell>FP</Table.HeaderCell>
+                <Table.HeaderCell>Val</Table.HeaderCell>
+                <Table.HeaderCell>L</Table.HeaderCell>
+                <Table.HeaderCell>E</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-          <Table.Body>{playerData}</Table.Body>
-        </Table>
+            <Table.Body>{playerData}</Table.Body>
+          </Table>
+          <SelectDate />
+          <PlayerProjections />
+        </>
       )}
     </>
   );
